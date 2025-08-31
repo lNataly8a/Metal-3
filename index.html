@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <title>:3</title>
+    <style>
+      :root {
+        --bg: #000000;
+        --panel-inner: #16061b;
+        --cyan: #18fff3;
+        --magenta: #ff1fd9;
+        --heart: #ff3b73;
+        --accent-yellow: #ffd94d;
+        --text: #f3c1ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(ellipse at bottom, #0d1d31 0%, #000 100%);
+        font-family: "Poppins", Inter, system-ui, -apple-system, "Segoe UI",
+          Roboto, Arial;
+        color: var(--text);
+        overflow: hidden;
+      }
+      .stars {
+        width: 100%;
+        height: 100%;
+        background: transparent
+          url("https://www.transparenttextures.com/patterns/stardust.png")
+          repeat;
+        animation: moveStars 100s linear infinite;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      @keyframes moveStars {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: -10000px 5000px;
+        }
+      }
+      .stage {
+        width: 100%;
+        max-width: 480px; /* límite para no ser demasiado ancho en desktop */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5vh;
+        padding: 5vh 2vw;
+      }
+      .panel {
+        width: 100%;
+        max-width: 420px;
+        aspect-ratio: 4/3; /* mantiene proporción */
+        border-radius: 12px;
+        background: linear-gradient(
+          180deg,
+          var(--panel-inner),
+          rgba(0, 0, 0, 0.35)
+        );
+        position: relative;
+        overflow: hidden;
+        padding: 4%;
+        border: 4px solid transparent;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
+          inset 0 0 40px rgba(255, 255, 255, 0.01);
+      }
+      .panel.top {
+        font-family: "VT323", monospace;
+        border-color: var(--cyan);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 2px var(--cyan), 0 0 2px var(--cyan),
+          0 0 2px var(--cyan), 0 0 15px var(--cyan);
+      }
+      .panel.bottom {
+        font-family: "Press Start 2P", cursive;
+        border-color: var(--magenta);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 2px var(--magenta), 0 0 2px var(--magenta),
+          0 0 2px var(--magenta), 0 0 15px var(--magenta);
+      }
+      .panel:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.02) 1px,
+          transparent 1px
+        );
+        background-size: 12px 12px;
+        opacity: 0.25;
+        pointer-events: none;
+      }
+      .typing {
+        color: var(--text);
+        font-weight: 600;
+        font-size: clamp(14px, 2.5vw, 20px);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        font-family: "VT323", monospace;
+        text-align: center;
+        text-shadow: 0 0 5px rgba(255, 0, 102, 0.8),
+          0 0 10px rgba(255, 0, 102, 0.6), 0 0 20px rgba(255, 0, 102, 0.4);
+      }
+      .cursor {
+        display: inline-block;
+        width: 8px;
+        height: 18px;
+        background: var(--cyan);
+        margin-left: 6px;
+        border-radius: 3px;
+        vertical-align: middle;
+        animation: blink 1s steps(2, end) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+      .heart-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      .heart {
+        width: clamp(80px, 18vw, 110px);
+        height: clamp(80px, 18vw, 110px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .heart svg {
+        width: 70%;
+        height: 70%;
+        filter: drop-shadow(0 12px 30px rgba(255, 59, 115, 0.14));
+      }
+      .timer {
+        text-align: center;
+        font-family: "Courier New", monospace;
+        color: var(--accent-yellow);
+        font-weight: 700;
+        margin-top: 14px;
+      }
+      .timer .numbers {
+        font-size: clamp(9px, 2vw, 12px);
+        font-family: "Press Start 2P", cursive;
+        font-size: 10px;
+      }
+      .timer .label {
+        font-size: clamp(10px, 2.2vw, 12px);
+        font-family: "Press Start 2P", cursive;
+        color: var(--text);
+        margin: 0px 0px 15px;
+        text-shadow: 0 0 2px var(--magenta), 0 0 6px var(--magenta);
+      }
+      .extra {
+        font-size: clamp(11px, 2.2vw, 12px);
+        font-size: 13px;
+        color: var(--text);
+        margin-top: 15px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 1s;
+        text-shadow: 0 0 2px var(--magenta), 0 0 6px var(--magenta);
+      }
+      .cta-text {
+        margin-top: -0.4rem;
+        font-size: 1rem;
+        font-weight: bold;
+        text-align: center;
+        background: linear-gradient(45deg, #ff2d75, #00f0ff, #8d4fff, #ff9d00);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 6px #ff2d75, 0 0 12px #00f0ff, 0 0 18px #8d4fff,
+          0 0 24px #ff9d00;
+        animation: cosmic-text 4s infinite alternate;
+      }
+
+      @keyframes cosmic-text {
+        0% {
+          text-shadow: 0 0 6px #ff2d75, 0 0 12px #00f0ff;
+        }
+        50% {
+          text-shadow: 0 0 10px #8d4fff, 0 0 20px #ff9d00;
+        }
+        100% {
+          text-shadow: 0 0 8px #00f0ff, 0 0 16px #ff2d75;
+        }
+      }
+
+      .pulse {
+        animation: beat 1s ease-in-out 0s 5;
+      }
+      @keyframes beat {
+        0% {
+          transform: scale(1);
+        }
+        30% {
+          transform: scale(1.12);
+        }
+        60% {
+          transform: scale(0.96);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @media (max-width: 420px) {
+        .stage {
+          transform: scale(0.9);
+        }
+      }
+      .heart,
+      .timer .label,
+      .timer .numbers,
+      .extra {
+        opacity: 0;
+        transition: opacity 1s;
+      }
+      .heart.pulse {
+        animation: heartbeat 1.5s ease-in-out infinite;
+      }
+
+      @keyframes heartbeat {
+        0% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 5px rgba(255, 59, 115, 0.6));
+        }
+        25% {
+          transform: scale(1.15);
+          filter: drop-shadow(0 0 20px rgba(255, 59, 115, 0.8));
+        }
+        40% {
+          transform: scale(1);
+        }
+        60% {
+          transform: scale(1.15);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @media (max-width: 350px) {
+        .panel {
+          aspect-ratio: auto;
+          height: auto;
+          min-height: 220px;
+        }
+      }
+    </style>
+
+    <audio id="bg-music" loop>
+      <source src="musica.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script>
+      document.addEventListener(
+        "click",
+        () => {
+          const music = document.getElementById("bg-music");
+          music.play();
+        },
+        { once: true }
+      );
+    </script>
+  </head>
+
+  <body>
+    <div class="stars"></div>
+    <div class="stage">
+      <div class="panel top">
+        <div class="typing" id="typingText"></div>
+      </div>
+      <div class="panel bottom">
+        <div class="heart-wrap" id="bottomContent" style="opacity: 0">
+          <div class="heart" id="heart">
+            <svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M23.6 0C20.4 0 18 2.2 16 4.4 14 2.2 11.6 0 8.4 0 3.8 0 0 3.8 0 8.4c0 9.2 16 21.2 16 21.2s16-12 16-21.2C32 3.8 28.2 0 23.6 0z"
+                fill="var(--heart)"
+              />
+            </svg>
+          </div>
+          <div class="timer">
+            <div class="label" id="label"></div>
+            <div class="numbers" id="numbers">0 días, 0 hrs, 0 min, 0 seg</div>
+          </div>
+          <div class="extra" id="extra">Y cada día te quiero más!</div>
+        </div>
+      </div>
+      <h2 class="cta-text">Te adoro muchooo Metal <3</h2>
+    </div>
+
+    <script>
+      // FRASES
+      const lines = [
+        "En los pliegues infinitos del universo,",
+        "mi alma reconoce tu fulgor secreto,",
+        "y aun en la vastedad del cielo,",
+        "eres la eternidad que habita en mí.",
+      ];
+      const typingEl = document.getElementById("typingText");
+      const cursor = '<span class="cursor"></span>';
+      const TYPE = 45;
+      let li = 0,
+        ci = 0;
+
+      function typeLine() {
+        if (li < lines.length) {
+          const line = lines[li];
+          if (ci <= line.length) {
+            typingEl.innerHTML =
+              lines.slice(0, li).join("\n") +
+              (ci > 0 ? "\n" : "") +
+              line.slice(0, ci) +
+              cursor;
+            ci++;
+            setTimeout(typeLine, TYPE);
+          } else {
+            li++;
+            ci = 0;
+            setTimeout(typeLine, 400);
+          }
+        } else {
+          // Terminado -> lanzar animación inferior
+          startBottom();
+        }
+      }
+      typeLine();
+
+      // Panel inferior animación
+      const heart = document.getElementById("heart");
+      const numbersEl = document.getElementById("numbers");
+      const labelEl = document.getElementById("label");
+      const extraEl = document.getElementById("extra");
+      const bottomContent = document.getElementById("bottomContent");
+      const target = { days: 750, hours: 21, mins: 24, secs: 51 };
+
+      function startBottom() {
+        bottomContent.style.opacity = 1;
+
+        // 1. Aparece corazón
+        setTimeout(() => {
+          heart.style.opacity = 1;
+          heart.classList.add("pulse");
+        }, 200);
+
+        // 2. Aparece label
+        setTimeout(() => {
+          labelEl.textContent = "Me enamoré de ti hace...";
+          labelEl.style.opacity = 1;
+        }, 1500);
+
+        // 3. Aparece timer (números con animación)
+        setTimeout(() => {
+          numbersEl.style.opacity = 1;
+          animateTimer();
+        }, 2500);
+
+        // 4. Aparece extra
+        setTimeout(() => {
+          extraEl.style.opacity = 1;
+        }, 4500);
+      }
+
+      // Función que hace la animación de números
+      function animateTimer() {
+        const duration = 2500,
+          steps = 60;
+        const sVals = [0, 0, 0, 0];
+        const targets = [1022, 19, 26, 42];
+        let i = 0;
+        const t = setInterval(() => {
+          i++;
+          for (let j = 0; j < 4; j++) {
+            sVals[j] = Math.floor(targets[j] * (i / steps));
+          }
+          numbersEl.textContent = `${sVals[0]} días, ${sVals[1]} hs, ${sVals[2]} min, ${sVals[3]} seg`;
+          if (i >= steps) {
+            clearInterval(t);
+            numbersEl.textContent = `${targets[0]} días, ${targets[1]} hrs, ${targets[2]} min, ${targets[3]} seg`;
+          }
+        }, Math.ceil(duration / steps));
+      }
+    </script>
+  </body>
+</html>
