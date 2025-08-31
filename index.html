@@ -189,7 +189,7 @@
         margin-top: 15px;
         text-align: center;
         opacity: 0;
-        transition: opacity 1s;
+        transition: opacity 2s;
         text-shadow: 0 0 2px var(--magenta), 0 0 6px var(--magenta);
       }
       .cta-text {
@@ -220,7 +220,7 @@
       }
 
       .pulse {
-        animation: beat 1s ease-in-out 0s 5;
+        animation: beat 3s ease-in-out 0s 5;
       }
       @keyframes beat {
         0% {
@@ -316,10 +316,10 @@
             <div class="label" id="label"></div>
             <div class="numbers" id="numbers">0 días, 0 hrs, 0 min, 0 seg</div>
           </div>
-          <div class="extra" id="extra">Y cada día te quiero más!</div>
+          <div class="extra" id="extra">Y cada día te amo más <3</div>
         </div>
       </div>
-      <h2 class="cta-text">Te adoro muchooo Metal <3</h2>
+        <h2 class="cta-text">Te adoro muchooo mi amoooor :3 </h2>
     </div>
 
     <script>
@@ -332,7 +332,7 @@
       ];
       const typingEl = document.getElementById("typingText");
       const cursor = '<span class="cursor"></span>';
-      const TYPE = 45;
+      const TYPE = 90;
       let li = 0,
         ci = 0;
 
@@ -350,7 +350,7 @@
           } else {
             li++;
             ci = 0;
-            setTimeout(typeLine, 400);
+            setTimeout(typeLine, 600);
           }
         } else {
           // Terminado -> lanzar animación inferior
@@ -374,29 +374,29 @@
         setTimeout(() => {
           heart.style.opacity = 1;
           heart.classList.add("pulse");
-        }, 200);
+        }, 1000);
 
         // 2. Aparece label
         setTimeout(() => {
           labelEl.textContent = "Me enamoré de ti hace...";
           labelEl.style.opacity = 1;
-        }, 1500);
+        }, 3200);
 
         // 3. Aparece timer (números con animación)
         setTimeout(() => {
           numbersEl.style.opacity = 1;
           animateTimer();
-        }, 2500);
+        }, 4500);
 
         // 4. Aparece extra
         setTimeout(() => {
           extraEl.style.opacity = 1;
-        }, 4500);
+        }, 12000);
       }
 
       // Función que hace la animación de números
       function animateTimer() {
-        const duration = 2500,
+        const duration = 6000,
           steps = 60;
         const sVals = [0, 0, 0, 0];
         const targets = [1022, 19, 26, 42];
